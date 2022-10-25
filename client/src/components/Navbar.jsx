@@ -1,30 +1,38 @@
 import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="w-[95%] mx-auto mt-2">
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">My Gift Shop</a>
-        </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal p-0 mr-12">
-            <li>
-              <a>Products</a>
-            </li>
-            <li>
-              <a>Cart</a>
-            </li>
-            <li>
-              <a>About us</a>
-            </li>
-            <li className="ml-6">
-              <a className="btn btn-primary">Login</a>
-            </li>
-          </ul>
+    <>
+      <div>
+        <div className="navbar bg-base-100">
+          <div className="flex-1">
+            <Link to="/" className="btn btn-ghost normal-case text-xl">
+              My Gift Shop
+            </Link>
+          </div>
+          <div className="flex-none">
+            <ul className="menu menu-horizontal p-0 mr-12">
+              <li>
+                <Link to="/products">Products</Link>
+              </li>
+              <li className="mx-2">
+                <Link to="/cart">Cart</Link>
+              </li>
+              <li>
+                <Link to="/about">About us</Link>
+              </li>
+              <li className="ml-6">
+                <Link to="/auth" className="btn btn-primary">
+                  Login
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+      <Outlet />
+    </>
   );
 };
 
