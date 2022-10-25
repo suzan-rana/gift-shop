@@ -1,39 +1,15 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from 'react'
+import { useSelector } from 'react-redux';
+import { Navbar } from './components';
 
 const App = () => {
-  const [inputData, setInputData] = useState({
-    name: "",
-  });
-  const [response, setResponse] = useState(null);
-
-  const handleChange = (event) => {
-    setInputData((prevData) => ({
-      ...prevData,
-      name: event.target.value,
-    }));
-  };
-
-  const handleSubmit = async () => {
-    const { data } = await axios.post(
-      "http://localhost:8000/api/takesuzan",
-      inputData
-    );
-
-    setResponse(data.yourname);
-  };
-
+  const products = useSelector( state => state.productStore)
+  console.log(products)
   return (
-    <>
-      <div>
-        <input type="text" onChange={handleChange} />
-        <button className="btn" onClick={handleSubmit}>
-          Submit name
-        </button>
-      </div>
-      <div>{response}</div>
-    </>
-  );
-};
+    <div>
+      <Navbar />
+    </div>
+  )
+}
 
 export default App;
