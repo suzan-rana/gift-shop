@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { Footer } from '../index'
 
 const Navbar = () => {
   return (
-    <>
+    <div>
       <div>
         <div className="navbar bg-base-100">
           <div className="flex-1">
@@ -31,8 +32,10 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
       <Outlet />
-    </>
+      <Footer />
+    </div>
   );
 };
 

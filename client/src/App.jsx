@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navbar, Products, LoginAndRegister, Cart, About } from "./components";
+import { Navbar, Products, LoginAndRegister, Cart, About, Footer } from "./components";
 import { Routes, Route } from "react-router-dom";
 const App = () => {
   const products = useSelector((state) => state.productStore);
@@ -14,10 +14,13 @@ const App = () => {
           </Route>
           <Route index path="/cart" element={<Cart />} />
           <Route index path="/about" element={<About />} />
+          
         </Route>
 
         <Route exact path="/auth" element={<LoginAndRegister />} />
       </Routes>
+      
+      
     </div>
   );
 };
