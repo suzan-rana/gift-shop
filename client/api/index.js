@@ -15,3 +15,18 @@ api.interceptors.request.use((req) => {
 
 export const loginUser = (formData) => api.post("/user/login", formData);
 export const registerUser = (formData) => api.post("/user/register", formData);
+
+//products
+// export const createProducts = (productData, imageData) =>
+//   api.post("/product", {
+//     body: productData,
+//     files: imageData,
+//   });
+
+export const createProducts = (formData, config) => api.post("/product", formData, config);
+
+
+
+
+//category
+export const addCategory = (category) => api.post('/')

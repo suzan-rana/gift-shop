@@ -5,7 +5,7 @@ import {
   loginUserThunk,
   registerUserThunk,
 } from "../../../redux/slices/authSlice";
-import { show } from "../../../redux/slices/productSlice";
+
 
 const LoginAndRegister = () => {
   const dispatch = useDispatch();

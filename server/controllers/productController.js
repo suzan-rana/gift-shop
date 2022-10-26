@@ -64,6 +64,7 @@ const getAllProduct = catchAsync(async (req, res, next) => {
 //post request on product item
 // post request --/product
 const postProduct = catchAsync(async (req, res, next) => {
+  console.log('Hello')
   const filename = req.file.filename;
   const categorydata = await categoryModel.findById(req.body.category);
   if (!categorydata) {

@@ -82,9 +82,11 @@ const protectMiddleware = catchAsync(async (req, res, next) => {
       new AppError("You are not authorized .Please login to proceed", 401)
     );
   }
+  console.log("ths token", token);
   //2) verify token
   const decoded = await promisify(jwt.verify)(token, process.env.jwtsecret);
   //3)
+  
   //check whether user exists or not after jwt issued
   const freshUser = await usermodel.findById(decoded.id);
   if (!freshUser) {

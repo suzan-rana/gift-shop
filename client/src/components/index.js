@@ -1,5 +1,6 @@
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Products } from "./Products/Products";
+export { default as Category } from "./Category/Category";
 export { default as ProductById } from "./Products/ProductById";
 export { default as ManageProducts } from "./Products/adminProduct/ManageProduct";
 export { default as Cart } from "./Cart/Cart";
