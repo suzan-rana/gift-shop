@@ -3,10 +3,10 @@ import Product from "./Product";
 
 const Products = () => {
   return (
-    <div className="px-6">
+    <div className="px-2 md:px-6">
       <div className="my-8">
-        <h1>Hello, Products Page.</h1>
-        <div className="flex items-center justify-center  gap-4">
+        <h1 className="text-center text-3xl my-6 ">Shop from wide varities of Products</h1>
+        <div className="flex flex-col md:flex-row  items-center justify-center  gap-4">
           <select className="my-4 select select-bordered w-full max-w-xs">
             <option disabled selected>
               Category
@@ -26,7 +26,7 @@ const Products = () => {
           <button className="btn btn-primary">Search</button>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-12  mx-auto ">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12  mx-auto ">
         <Product />
         <Product />
         <Product />

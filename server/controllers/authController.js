@@ -7,14 +7,16 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const sendEmail = require("../utils/nodemail");
 
-const jwttoken = (id) => {
+const jwttoken = (id, email, username) => {
   const token = jwt.sign(
     {
       id,
+      email,
+      username,
     },
     process.env.jwtsecret,
     {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: "1hr",
     }
   );
   return token;
@@ -27,6 +29,7 @@ save data to database
 */
 //post request post  /user/register
 const registerUser = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return next(new AppError("Input  all field", 400));
@@ -37,7 +40,7 @@ const registerUser = catchAsync(async (req, res, next) => {
     password,
   });
   const data = await saveData.save();
-  const token = jwttoken(saveData._id);
+  const token = jwttoken(saveData._id, saveData.email, saveData.username);
 
   res.status(200).json({
     status: "success",
@@ -54,7 +57,7 @@ const loginUser = catchAsync(async (req, res, next) => {
     return next(new AppError("User Not found with given email ", 400));
   }
   if (user && (await bcrypt.compare(req.body.password, user.password))) {
-    const token = jwttoken(user._id);
+    const token = jwttoken(user._id, user.email, user.username);
     return res.status(200).json({
       status: "success",
       message: "user authorized",

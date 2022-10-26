@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    status: 'Active',
-    products: [ 
+    status: "Active",
+    products: [
       {
         name: "Umbrella",
         price: 89,
@@ -12,6 +12,11 @@ const productSlice = createSlice({
       },
     ],
   },
-  extraReducers: (builder) => {},
+  reducers: {
+    show: (state, action) => {
+      console.log(current(state));
+    },
+  },
 });
 export default productSlice.reducer;
+export const { show } = productSlice.actions;

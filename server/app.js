@@ -83,10 +83,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //for atlas connecdtion
-const mongodbUrl = process.env.MONGODB_ATLAS_SERVER.replace(
-  "<password>",
-  process.env.MONGODB_ATLAS_SERVER_PASSWORD
-);
+// const mongodbUrl = process.env.MONGODB_ATLAS_SERVER.replace(
+//   "<password>",
+//   process.env.MONGODB_ATLAS_SERVER_PASSWORD
+// );
 
 //connecting to local database
 mongoose
@@ -95,7 +95,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Mongodb atlas connected ");
+    console.log("Mongodb compass connected ");
   })
   .catch((error) => {
     console.log(error);
