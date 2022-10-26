@@ -37,9 +37,9 @@ const ManageProducts = () => {
     formData.append("products", productData);
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }
+        "Content-Type": "multipart/form-data",
+      },
+    };
 
     dispatch(createProductsThunk(formData, config));
   };
@@ -82,13 +82,13 @@ const ManageProducts = () => {
                 <span className="label-text">Category</span>
               </label>
 
-              <input
-                name="category"
-                onChange={(event) => handleOnChange(event)}
-                type="text"
-                placeholder="category"
-                className="input input-bordered"
-              />
+              <select className="select select-bordered w-full">
+                <option disabled selected>
+                  Who shot first?
+                </option>
+                <option>Han Solo</option>
+                <option>Greedo</option>
+              </select>
             </div>
             <div className="form-control">
               <label

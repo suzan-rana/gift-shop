@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createProducts, addCategory } from "../../api";
+import { createProducts } from "../../api";
 
 const productSlice = createSlice({
   name: "products",
@@ -7,6 +7,7 @@ const productSlice = createSlice({
     status: "Active",
     products: [],
   },
+ 
 });
 export default productSlice.reducer;
 
@@ -19,10 +20,3 @@ export const createProductsThunk = createAsyncThunk(
   }
 );
 
-export const addCategoryThunk = createAsyncThunk(
-  "products/addcategory",
-  async (category) => {
-    const { data } = await addCategory(category)
-    return data;
-  }
-);

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCategoryThunk } from "../../../redux/slices/productSlice"
+import { addCategoryThunk } from "../../../redux/slices/categorySlice";
 
 const Category = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [category, setCategory] = useState({
     name: "",
     color: "#ffffff",
+    image: "",
   });
   const handleChange = (event) => {
     setCategory((prevCategory) => ({
@@ -16,9 +17,25 @@ const Category = () => {
   };
 
   const handleSubmit = () => {
-    console.log(category)
-    dispatch(addCategoryThunk(category))
-  }
+    console.log(category);
+    let formData = new FormData()
+    formData.append('name', category.name)
+    formData.append('color', category.color)
+    formData.append('image', category.image)
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    dispatch(addCategoryThunk(formData, config));
+  };
+  const handleImages = (event) => {
+    const image = event.target.files ? event.target.files[0] : null;
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      image: image,
+    }));
+  };
 
   return (
     <div className="hero bg-base-800 mt-24">
@@ -34,7 +51,7 @@ const Category = () => {
                 <span className="label-text">Name</span>
               </label>
               <input
-              name="name"
+                name="name"
                 onChange={(event) => handleChange(event)}
                 type="text"
                 placeholder="name"
@@ -55,8 +72,26 @@ const Category = () => {
                 className="input w-[100%] px-0 rounded-md"
               />
             </div>
+            <div className="form-control">
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                htmlFor="file_input"
+                onChange={(event) => handleImages(event)}
+              >
+                Upload file
+              </label>
+              <input
+                // name="image"
+                onChange={(event) => handleImages(event)}
+                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="file_input"
+                type="file"
+              />
+            </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary" onClick={handleSubmit}>Add</button>
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Add
+              </button>
             </div>
           </div>
         </div>

@@ -23,10 +23,11 @@ export const registerUser = (formData) => api.post("/user/register", formData);
 //     files: imageData,
 //   });
 
-export const createProducts = (formData, config) => api.post("/product", formData, config);
-
-
-
+export const createProducts = (formData, config) =>
+  api.post("/product", formData, config);
 
 //category
-export const addCategory = (category) => api.post('/')
+export const addCategory = (formData, config) =>
+  api.post("/category", formData, config);
+
+export const getCategory = () => api.get("/category");
