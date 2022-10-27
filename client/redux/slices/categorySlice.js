@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { addCategory } from "../../api";
+import { addCategory, getCategory } from "../../api";
 
 const categorySlice = createSlice({
   name: "category",
@@ -10,11 +10,13 @@ const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addCategoryThunk.fulfilled, (state, action) => {
-        state.category.push(action.payload.data.name);
-        state.status = action.payload.status;
+      
       })
       .addCase(getCategoryThunk.fulfilled, (state, action) => {
-        //
+        const category = action.payload.data
+        state.category = category;
+        state.status = action.payload.status
+        
       });
   },
 });
@@ -33,6 +35,7 @@ export const getCategoryThunk = createAsyncThunk(
   "category/getCategory",
   async () => {
     const { data } = await getCategory();
+    console.log(data)
     return data;
   }
 );

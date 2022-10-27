@@ -1,9 +1,14 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createProductsThunk } from "../../../../redux/slices/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import productSlice, {
+  createProductsThunk,
+} from "../../../../redux/slices/productSlice";
+import { getCategoryThunk } from "../../../../redux/slices/categorySlice";
 
 const ManageProducts = () => {
+  const categoryList = useSelector((state) => state.categorySlice.category);
   const dispatch = useDispatch();
   const [productData, setProductData] = useState({
     name: "",
@@ -14,6 +19,10 @@ const ManageProducts = () => {
     imageUrl: null,
     image: null,
   });
+  useEffect(() => {
+    console.log("get category");
+    dispatch(getCategoryThunk()).then(() => console.log("then category"));
+  }, []);
 
   const handleOnChange = (event) => {
     setProductData((prevProductData) => ({
@@ -32,15 +41,20 @@ const ManageProducts = () => {
     });
   };
   const handleSubmit = () => {
+    const category =  categoryList.find(item => item.name === productData.category)
     const formData = new FormData();
     formData.append("image", productData.image);
-    formData.append("products", productData);
+    formData.append("name", productData.name);
+    formData.append("description", productData.description);
+    formData.append("category", category.id);
+    formData.append("quantity", productData.quantity);
+    formData.append("price", productData.price);
+
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     };
-
     dispatch(createProductsThunk(formData, config));
   };
   return (
@@ -82,12 +96,17 @@ const ManageProducts = () => {
                 <span className="label-text">Category</span>
               </label>
 
-              <select className="select select-bordered w-full">
+              <select
+                name="category"
+                className="select select-bordered w-full"
+                onChange={(event) => handleOnChange(event)}
+              >
                 <option disabled selected>
-                  Who shot first?
+                  Select a category
                 </option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
+                {categoryList.map((item, index) => (
+                  <option key={index}>{item.name}</option>
+                ))}
               </select>
             </div>
             <div className="form-control">

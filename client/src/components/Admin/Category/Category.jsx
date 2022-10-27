@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCategoryThunk } from "../../../redux/slices/categorySlice";
+import { addCategoryThunk } from "../../../../redux/slices/categorySlice";
 
 const Category = () => {
   const dispatch = useDispatch();

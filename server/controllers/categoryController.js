@@ -40,10 +40,10 @@ const uploadOptions = multer({ storage: storage });
 
 //post request on category  /category
 const postCategory = catchAsync(async (req, res, next) => {
-  // const file = req.file;
-  // if (!file) {
-  //   return next(new AppError("Image section not found ", 400));
-  // }
+  const file = req.file;
+  if (!file) {
+    return next(new AppError("Image section not found ", 400));
+  }
   const { name, icon, color } = req.body;
   const filename = req.file.filename;
   const saveData = await categoryModel.create({

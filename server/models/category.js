@@ -3,6 +3,7 @@ const categorySchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "must include a category name "],
+    unique: true,
   },
   icon: {
     type: String,

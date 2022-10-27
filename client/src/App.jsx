@@ -7,7 +7,9 @@ import {
   Cart,
   About,
   Footer,
-  ManageProducts, Category
+  ManageProducts,
+  Category,
+  Admin,
 } from "./components";
 import { Routes, Route } from "react-router-dom";
 const App = () => {
@@ -19,10 +21,12 @@ const App = () => {
             <Route index element={<Products />} />
           </Route>
           <Route index path="/cart" element={<Cart />} />
+          <Route exact path="/admin" element={<Admin />} />
           <Route index path="/about" element={<About />} />
         </Route>
 
         <Route exact path="/auth" element={<LoginAndRegister />} />
+
         <Route exact path="/addcategory" element={<Category />} />
         <Route exact path="/manageproducts" element={<ManageProducts />} />
       </Routes>

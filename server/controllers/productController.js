@@ -64,8 +64,9 @@ const getAllProduct = catchAsync(async (req, res, next) => {
 //post request on product item
 // post request --/product
 const postProduct = catchAsync(async (req, res, next) => {
-  console.log('Hello')
+  console.log("Hello");
   const filename = req.file.filename;
+  console.log(req.body);
   const categorydata = await categoryModel.findById(req.body.category);
   if (!categorydata) {
     return next(new AppError("Invalid Category ", 400));

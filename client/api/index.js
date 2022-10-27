@@ -22,7 +22,7 @@ export const registerUser = (formData) => api.post("/user/register", formData);
 //     body: productData,
 //     files: imageData,
 //   });
-
+export const getProducts = () => api.get('/product')
 export const createProducts = (formData, config) =>
   api.post("/product", formData, config);
 
