@@ -31,3 +31,7 @@ export const addCategory = (formData, config) =>
   api.post("/category", formData, config);
 
 export const getCategory = () => api.get("/category");
+
+
+//cart
+// export const addToCart = (id) => api.post('/cart', )
