@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from 'react-redux'
-import { addToCartThunk } from "../../../redux/slices/cartSlice"
+// import { addToCartThunk } from "../../../redux/slices/cartSlice"
 
 
 
 const Product = ({ product }) => {
   const dispatch = useDispatch()
-  const handleAddToCart = (id) => {
-    dispatchEvent(addToCartThunk(id))
-  }
+  // const handleAddToCart = (id) => {
+  //   dispatchEvent(addToCartThunk(id))
+  // }
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
