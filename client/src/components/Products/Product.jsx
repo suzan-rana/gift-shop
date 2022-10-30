@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { addToCartThunk } from "../../../redux/slices/cartSlice"
+import { addToCartThunk } from "../../../redux/slices/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -17,8 +17,12 @@ const Product = ({ product }) => {
     return;
   };
 
-  const handleAddToCart = (id, quantity) => {
-    dispatchEvent(addToCartThunk(id, quantity));
+  const handleAddToCart = (product, quantity) => {
+    const productDetails = {
+      product,
+      quantity,
+    };
+    dispatch(addToCartThunk(productDetails));
   };
   return (
     <div className="card bg-base-100 shadow-xl">
@@ -48,7 +52,7 @@ const Product = ({ product }) => {
         <div className="card-actions mt-4">
           <button
             className="btn btn-ghost border-primary mr-2"
-            onClick={() => handleAddToCart(product._id, currentQuantity)}
+            onClick={() => handleAddToCart(product, currentQuantity)}
           >
             Add to Cart
           </button>

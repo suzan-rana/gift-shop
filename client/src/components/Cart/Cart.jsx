@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItemsThunk } from "../../../redux/slices/cartSlice";
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cartSlice.cart);
+  const dispatch = useDispatch();
+  console.log(cart);
+
+  useEffect(() => {
+    dispatch(getCartItemsThunk());
+  }, []);
   return (
     <div className="overflow-x-auto w-full my-16">
       <table className="table w-full">
@@ -34,7 +43,7 @@ const Cart = () => {
                   <div className="font-bold  ">Black Shoes</div>
                   <div className="text-sm opacity-50">United States</div>
                 </div>
-              </div>  
+              </div>
             </td>
             <td>
               Zemlak, Daniel and Leannon
