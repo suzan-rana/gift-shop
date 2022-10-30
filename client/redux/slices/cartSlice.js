@@ -6,11 +6,7 @@ const cartSlice = createSlice({
   initialState: {
     cart: []
   },
-  // extraReducers: builder => {
-  //   builder.addCase(addToCartThunk.fulfilled, (state, action) => {
 
-  //   })
-  // }
 });
 export default cartSlice.reducer;
 

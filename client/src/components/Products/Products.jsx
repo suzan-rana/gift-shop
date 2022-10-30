@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../../redux/slices/productSlice";
+import { getCategoryThunk } from "../../../redux/slices/categorySlice";
 
 const Products = () => {
+
   const [searchInput, setSearchInput] = useState("");
   const [currentCategory, setCurrentCategory] = useState("All Products");
   const allProducts = useSelector((state) => state.productSlice.products);
+  const categoryOfProducts = useSelector(
+    (state) => state.categorySlice.category
+  );
   const [products, setProducts] = useState(allProducts);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProductsThunk());
+    dispatch(getCategoryThunk());
   }, []);
 
   const handleCategoryChange = (event) => {
@@ -48,13 +54,10 @@ const Products = () => {
             onChange={(event) => handleCategoryChange(event)}
           >
             <option>All Products</option>
-            <option>Homer</option>
-            <option>Marge</option>
-            <option>Alien</option>
-            <option>Bart</option>
-            <option>Lisa</option>
-            <option>Maggie</option>
-          </select>
+            {categoryOfProducts?.map((category, index) => (
+              <option key={index}>{category.name}</option>
+            ))}
+          </select> 
           <input
             onChange={(event) => handleSearchInput(event)}
             type="text"
