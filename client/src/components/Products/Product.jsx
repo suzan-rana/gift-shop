@@ -1,10 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCartThunk } from "../../../redux/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCartThunk,
+  updateToCartThunk,
+} from "../../../redux/slices/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cartSlice.cart);
 
   const [currentQuantity, setCurrentQuantity] = useState(1);
   const IncreaseQuantity = () => {
@@ -18,11 +22,21 @@ const Product = ({ product }) => {
   };
 
   const handleAddToCart = (product, quantity) => {
-    const productDetails = {
-      product,
-      quantity,
-    };
-    dispatch(addToCartThunk(productDetails));
+    const foundItemInCart = cart.find((item) => item.product === product.id);
+
+    if (!foundItemInCart) {
+      const productDetails = {
+        product,
+        quantity,
+      };
+      dispatch(addToCartThunk(productDetails));
+    } else {
+      const productDetails = {
+        id: foundItemInCart._id,
+        quantity,
+      };
+      dispatch(updateToCartThunk(productDetails));
+    }
   };
   return (
     <div className="card bg-base-100 shadow-xl">

@@ -1,13 +1,29 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, Navigate, redirect } from "react-router-dom";
 import {
   loginUserThunk,
   registerUserThunk,
 } from "../../../redux/slices/authSlice";
 
-
 const LoginAndRegister = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+  const [userData, setUserData] = useState(user);
+  console.log(userData);
+  useEffect(() => {
+    setUserData(user);
+  }, []);
+  useEffect(() => {
+    if (userData) {
+      navigate("/auth");
+    }
+  }, []);
+
+  console.log("this is location", location);
   const dispatch = useDispatch();
   const [regiserMode, setRegisterMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,13 +47,13 @@ const LoginAndRegister = () => {
   const handleSubmit = () => {
     if (!formData.email || !formData.password) return;
     if (!regiserMode) {
-      dispatch(loginUserThunk(formData))
-        .then(() => dispatch(show()))
-        .catch((error) => console.log(error));
+      dispatch(loginUserThunk(formData)).then(() => {
+        navigate("/");
+      });
     } else {
-      dispatch(registerUserThunk(formData))
-        .then(() => dispatch(show()))
-        .catch((error) => console.log(error));
+      dispatch(registerUserThunk(formData)).then(() => {
+        navigate("/");
+      });
     }
   };
 

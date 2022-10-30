@@ -18,23 +18,38 @@ const getAllCart = catchAsync(async (req, res, next) => {
 });
 
 const postCart = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { product, quantity } = req.body;
+  console.log(
+    "=============================================",
+    product,
+    quantity,
+    "=============================="
+  );
   if (!product) {
     return next(new AppError("Need the product to add to the cart ", 400));
   }
-  const cartData = cartModel.create({
+  // const cartData = cartModel.create({
+  //   user: req.user._id,
+  //   product,
+  //   quantity,
+  // });
+  const cartData = new cartModel({
     user: req.user._id,
     product,
     quantity,
   });
+  
   const data = await cartData.save();
-  if (!data) {
+  console.log(data);
+  if (!cartData) {
     return next(new AppError("Error saving cart to database Try again ", 400));
   }
   res.status(200).json({
     status: "success",
     message: "Added to cart ",
     data,
+    price: product.price
   });
 });
 

@@ -30,3 +30,5 @@ export const addCategory = (formData, config) =>
 export const getCartItems = () => api.get("/cart");
 export const addToCart = ({ product, quantity }) =>
   api.post("/cart", { product, quantity });
+
+export const updateCart = (id, quantity) => api.put(`/cart/${id}`, quantity)

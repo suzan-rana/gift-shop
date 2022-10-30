@@ -6,17 +6,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     status: "",
-    data: {
-      email: "",
-      id: "",
-    },
+    data: null,
   },
   extraReducers: (builder) => {
     builder.addCase(loginUserThunk.fulfilled, (state, action) => {
       state.status = "SUCCESS";
-      state.data.email = action.payload.email;
-      state.data.username = action.payload.username;
-      state.data.id = action.payload.id;
+      state.data = action.payload
       console.log(current(state));
     });
   },
@@ -31,6 +26,7 @@ export const loginUserThunk = createAsyncThunk(
     localStorage.setItem("token", JSON.stringify(data.token));
     if (data?.status === "success") {
       let decodedData = jwt_decode(data?.token);
+      localStorage.setItem('user', JSON.stringify(decodedData))
       return decodedData;
     }
   }
