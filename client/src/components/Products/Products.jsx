@@ -6,8 +6,9 @@ import { getProductsThunk } from "../../../redux/slices/productSlice";
 const Products = () => {
   const [searchInput, setSearchInput] = useState("");
   const [currentCategory, setCurrentCategory] = useState("All Products");
-  const products = useSelector((state) => state.productSlice.products);
-  console.log(products);
+  const allProducts = useSelector((state) => state.productSlice.products);
+  const [products, setProducts] = useState(allProducts);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -20,18 +21,20 @@ const Products = () => {
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
-  // const newProducts = products?.filter((product) => {
-  //   if(currentCategory === 'All Products') return product;
-  //   if (searchInput !== "") {
-  //     return (
-  //       product.name === searchInput &&
-  //       product.category.name === currentCategory
-  //     );
-  //   }
-  //   return (
-  //     product.name === searchInput && product.category.name === currentCategory
-  //   );
-  // }); 
+
+  const handleSearch = () => {
+    const productsBySearchAndCategory = allProducts?.filter((product) => {
+      if (currentCategory === "All Products") return product;
+      if (searchInput !== "") {
+        return (
+          product.name === searchInput &&
+          product.category.name === currentCategory
+        );
+      }
+      return product.category.name === currentCategory;
+    });
+    setProducts(productsBySearchAndCategory);
+  };
 
   return (
     <div className="px-2 md:px-6">
@@ -58,11 +61,13 @@ const Products = () => {
             placeholder="Search for your products"
             className="input input-bordered w-full max-w-xs"
           />
-          <button className="btn btn-primary">Search</button>
+          <button className="btn btn-primary" onClick={handleSearch}>
+            Search
+          </button>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12  mx-auto ">
-        {newProducts.map((product) => (
+        {products.map((product) => (
           <Product key={product.id} product={product} />
         ))}
       </div>
