@@ -1,9 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCartThunk,
   updateToCartThunk,
+  calculateTotalItems,
 } from "../../../redux/slices/cartSlice";
 
 const Product = ({ product }) => {
@@ -11,6 +13,7 @@ const Product = ({ product }) => {
   const cart = useSelector((state) => state.cartSlice.cart);
 
   const [currentQuantity, setCurrentQuantity] = useState(1);
+
   const IncreaseQuantity = () => {
     setCurrentQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -29,13 +32,17 @@ const Product = ({ product }) => {
         product,
         quantity,
       };
-      dispatch(addToCartThunk(productDetails));
+      dispatch(addToCartThunk(productDetails)).then(() => {
+        dispatch(calculateTotalItems());
+      });
     } else {
       const productDetails = {
         id: foundItemInCart._id,
         quantity: foundItemInCart.quantity + quantity,
       };
-      dispatch(updateToCartThunk(productDetails));
+      dispatch(updateToCartThunk(productDetails)).then(() => {
+        dispatch(calculateTotalItems());
+      });
     }
   };
   return (

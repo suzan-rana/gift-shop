@@ -3,15 +3,17 @@ import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../../redux/slices/productSlice";
 import { getCategoryThunk } from "../../../redux/slices/categorySlice";
-import { getCartItemsThunk } from "../../../redux/slices/cartSlice";
+import { getCartItemsThunk, calculateTotalItems } from "../../../redux/slices/cartSlice";
 
 const Products = () => {
+  
   const [searchInput, setSearchInput] = useState("");
   const [currentCategory, setCurrentCategory] = useState("All Products");
   const allProducts = useSelector((state) => state.productSlice.products);
   const categoryOfProducts = useSelector(
     (state) => state.categorySlice.category
   );
+
   const [products, setProducts] = useState(allProducts);
 
   const dispatch = useDispatch();
@@ -24,6 +26,8 @@ const Products = () => {
   useEffect(() => {
     setProducts(allProducts);
   }, [allProducts]);
+
+
 
   const handleCategoryChange = (event) => {
     setCurrentCategory(event.target.value);

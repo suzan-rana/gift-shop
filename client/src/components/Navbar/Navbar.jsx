@@ -6,6 +6,7 @@ import { Footer } from "../index";
 
 const Navbar = () => {
   const userFromLocalStorage = JSON.parse(localStorage.getItem("user"));
+  const totalItems = useSelector((state) => state.cartSlice.totalItems);
   const [userData, setUserData] = useState(userFromLocalStorage);
   useEffect(() => {
     setUserData(userFromLocalStorage);
@@ -28,7 +29,14 @@ const Navbar = () => {
                 <Link to="/products">Products</Link>
               </li>
               <li className="mx-2">
-                <Link to="/cart">Cart</Link>
+                <Link to="/cart">
+                  <div className="flex justify-center">
+                    Cart
+                    {totalItems !== 0 && (
+                      <span className="italic">({totalItems})</span>
+                    )}
+                  </div>
+                </Link>
               </li>
               <li>
                 <Link to="/about">About us</Link>

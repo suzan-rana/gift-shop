@@ -4,8 +4,27 @@ import { addToCart, getCartItems, updateCart, deleteCartItem } from "../../api";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
+    totalItems: 0,
+    totalPrice: 0,
     cart: [],
     status: null,
+  },
+  reducers: {
+    calculateTotalItems: (state, action) => {
+      let totalItems = 0;
+      state.cart.forEach((element) => {
+        totalItems = element.quantity + totalItems;
+      });
+      console.log(totalItems, "items");
+      state.totalItems = totalItems;
+    },
+    calculateTotalPrice: (state, action) => {
+      let totalPrice = 0;
+      state.cart.forEach((element) => {
+        totalPrice = element.price * element.quantity + totalPrice;
+      });
+      state.totalPrice = totalPrice
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,12 +70,13 @@ const cartSlice = createSlice({
           const updatedCartAfterRemovingItem = state.cart?.filter(
             (item) => item._id !== id
           );
-          state.cart = updatedCartAfterRemovingItem
+          state.cart = updatedCartAfterRemovingItem;
         }
       });
   },
 });
 export default cartSlice.reducer;
+export const { calculateTotalItems, calculateTotalPrice } = cartSlice.actions;
 
 export const addToCartThunk = createAsyncThunk(
   "cart/addtocartthunk",

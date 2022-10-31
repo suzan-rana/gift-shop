@@ -79,12 +79,6 @@ const updateCart = catchAsync(async (req, res, next) => {
 });
 
 const deleteCart = catchAsync(async (req, res, next) => {
-  console.log(req.params.id, "======================================")
-  console.log(req.params.id, "======================================")
-  console.log(req.params.id, "======================================")
-  console.log(req.params.id, "======================================")
-  console.log(req.params.id, "======================================")
-  console.log(req.params.id, "======================================")
   const cartDetail = await cartModel.findByIdAndDelete({ _id: req.params.id });
   if (!cartDetail) {
     return next(
