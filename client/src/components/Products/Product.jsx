@@ -22,8 +22,9 @@ const Product = ({ product }) => {
   };
 
   const handleAddToCart = (product, quantity) => {
-    const foundItemInCart = cart.find((item) => item.product === product.id);
-
+    const foundItemInCart =
+      cart.find((item) => item?.productId === product?._id) || null;
+    console.log(foundItemInCart);
     if (!foundItemInCart) {
       const productDetails = {
         product,
@@ -33,7 +34,7 @@ const Product = ({ product }) => {
     } else {
       const productDetails = {
         id: foundItemInCart._id,
-        quantity,
+        quantity: foundItemInCart.quantity + quantity,
       };
       dispatch(updateToCartThunk(productDetails));
     }

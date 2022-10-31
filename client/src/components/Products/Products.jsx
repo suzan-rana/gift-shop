@@ -3,9 +3,9 @@ import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../../redux/slices/productSlice";
 import { getCategoryThunk } from "../../../redux/slices/categorySlice";
+import { getCartItemsThunk } from "../../../redux/slices/cartSlice";
 
 const Products = () => {
-
   const [searchInput, setSearchInput] = useState("");
   const [currentCategory, setCurrentCategory] = useState("All Products");
   const allProducts = useSelector((state) => state.productSlice.products);
@@ -18,7 +18,12 @@ const Products = () => {
   useEffect(() => {
     dispatch(getProductsThunk());
     dispatch(getCategoryThunk());
+    dispatch(getCartItemsThunk());
   }, []);
+
+  useEffect(() => {
+    setProducts(allProducts);
+  }, [allProducts]);
 
   const handleCategoryChange = (event) => {
     setCurrentCategory(event.target.value);
@@ -57,7 +62,7 @@ const Products = () => {
             {categoryOfProducts?.map((category, index) => (
               <option key={index}>{category.name}</option>
             ))}
-          </select> 
+          </select>
           <input
             onChange={(event) => handleSearchInput(event)}
             type="text"

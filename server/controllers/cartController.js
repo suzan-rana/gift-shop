@@ -36,10 +36,11 @@ const postCart = catchAsync(async (req, res, next) => {
   // });
   const cartData = new cartModel({
     user: req.user._id,
-    product,
+    productId: product,
     quantity,
+    price: product.price,
   });
-  
+
   const data = await cartData.save();
   console.log(data);
   if (!cartData) {
@@ -49,12 +50,12 @@ const postCart = catchAsync(async (req, res, next) => {
     status: "success",
     message: "Added to cart ",
     data,
-    price: product.price
   });
 });
 
 const updateCart = catchAsync(async (req, res, next) => {
-  const { quantity } = req.body;
+  
+  const { quantity } = req.body; 
   const data = await cartModel.findOneAndUpdate(
     {
       _id: req.params.id,

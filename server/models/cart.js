@@ -5,10 +5,14 @@ const cartSchema = mongoose.Schema({
     ref: "user",
     required: [true, "nedd to have user to add to cart "],
   },
-  product: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "product",
     required: [true, "Need to have product to add to cart "],
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   quantity: {
     type: Number,

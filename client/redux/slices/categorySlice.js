@@ -26,7 +26,6 @@ export const addCategoryThunk = createAsyncThunk(
   "products/addcategory",
   async (formData, config) => {
     const { data } = await addCategory(formData, config);
-    console.log(data);
     return data;
   }
 );
@@ -35,7 +34,6 @@ export const getCategoryThunk = createAsyncThunk(
   "category/getCategory",
   async () => {
     const { data } = await getCategory();
-    console.log(data)
     return data;
   }
 );
