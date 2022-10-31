@@ -8,3 +8,5 @@ export { default as Admin } from './Admin/Admin'
 export { default as About } from "./About/About";
 export { default as Footer } from "./Footer/Footer";
 export { default as LoginAndRegister } from "./Auth/Auth";
+export { default as Layout } from './Layout.jsx'
+export { default as ProtectRoutes } from './ProtectRoutes'

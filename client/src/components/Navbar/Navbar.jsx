@@ -1,8 +1,18 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import { Footer } from '../index'
+import { Footer } from "../index";
 
 const Navbar = () => {
+  const userFromLocalStorage = JSON.parse(localStorage.getItem("user"));
+  const [userData, setUserData] = useState(userFromLocalStorage);
+  useEffect(() => {
+    setUserData(userFromLocalStorage);
+  }, []);
+  const handleLogout = () => {
+    localStorage.clear();
+  };
   return (
     <div>
       <div>
@@ -24,9 +34,19 @@ const Navbar = () => {
                 <Link to="/about">About us</Link>
               </li>
               <li className="ml-6">
-                <Link to="/auth" className="btn btn-primary">
-                  Login
-                </Link>
+                {userData ? (
+                  <Link
+                    to="/auth"
+                    className="btn btn-primary"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Link>
+                ) : (
+                  <Link to="/auth" className="btn btn-primary">
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Navbar,
@@ -10,6 +10,7 @@ import {
   ManageProducts,
   Category,
   Admin,
+  ProtectRoutes, Layout
 } from "./components";
 import {
   Routes,
@@ -19,36 +20,34 @@ import {
   useLocation,
   redirect,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
+const Home = () => {
+  return(
+    <h1>Home component here.</h1>
+  )
+}
 const App = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user")) || null;
-  const [userData, setUserData] = useState(user);
-  useEffect(() => {
-    setUserData(user);
-  }, []);
-  useEffect(() => {
-    if (!userData) redirect("/auth");
-  }, []);
-
   return (
-    <div className="w-[95%] mx-auto mt-2 bg-base-800 min-h-full">
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route exact path="/products">
-            <Route index element={<Products />} />
-          </Route>
-          <Route index path="/cart" element={<Cart />} />
-          <Route exact path="/admin" element={<Admin />} />
-          <Route index path="/about" element={<About />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route element={<Navbar />}>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
         </Route>
-        <Route exact path="/addcategory" element={<Category />} />
-        <Route exact path="/manageproducts" element={<ManageProducts />} />
-        {!userData ? (
-          <Route exact path="/auth" element={<LoginAndRegister />} />
-        ): null }
-      </Routes>
-    </div>
+        <Route path="/auth" element={<LoginAndRegister />} />
+
+        {/* protected routes */}
+        <Route element={<ProtectRoutes />}>
+          <Route element={<Navbar />}>
+            <Route path="/products" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />{" "}
+          </Route>
+          <Route path="/manageproducts" element={<ManageProducts />} />
+          <Route path="/addcategory" element={<Category />} />
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 
