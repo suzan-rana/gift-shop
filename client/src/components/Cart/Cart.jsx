@@ -30,6 +30,7 @@ const TableBody = ({ item }) => {
   const handleDeleteCartItem = () => {
     dispatch(deleteCartItemThunk(item)).then(() => {
       dispatch(calculateTotalItems());
+      dispatch(calculateTotalPrice());
     });
   };
   return (
