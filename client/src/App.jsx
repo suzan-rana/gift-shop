@@ -9,7 +9,7 @@ import {
   Footer,
   ManageProducts,
   Category,
-  Admin,
+  Admin, Home,
   ProtectRoutes, Layout
 } from "./components";
 import {
@@ -20,11 +20,7 @@ import {
   useLocation,
   redirect,
 } from "react-router-dom";
-const Home = () => {
-  return(
-    <h1>Home component here.</h1>
-  )
-}
+
 const App = () => {
   return (
     <Routes>
@@ -39,6 +35,7 @@ const App = () => {
         {/* protected routes */}
         <Route element={<ProtectRoutes />}>
           <Route element={<Navbar />}>
+            
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />{" "}
           </Route>

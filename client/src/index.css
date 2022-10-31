@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.cart{
+    background-color: none !important;
+}
+table, thead, tbody, td, tr, th{
+    background-color: none !important;
+}
 
 
 

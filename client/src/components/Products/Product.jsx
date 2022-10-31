@@ -24,7 +24,6 @@ const Product = ({ product }) => {
   const handleAddToCart = (product, quantity) => {
     const foundItemInCart =
       cart.find((item) => item?.productId === product?._id) || null;
-    console.log(foundItemInCart);
     if (!foundItemInCart) {
       const productDetails = {
         product,

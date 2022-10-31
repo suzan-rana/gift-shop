@@ -37,6 +37,7 @@ const postCart = catchAsync(async (req, res, next) => {
   const cartData = new cartModel({
     user: req.user._id,
     productId: product,
+    productName: product.name,
     quantity,
     price: product.price,
   });
@@ -78,13 +79,19 @@ const updateCart = catchAsync(async (req, res, next) => {
 });
 
 const deleteCart = catchAsync(async (req, res, next) => {
+  console.log(req.params.id, "======================================")
+  console.log(req.params.id, "======================================")
+  console.log(req.params.id, "======================================")
+  console.log(req.params.id, "======================================")
+  console.log(req.params.id, "======================================")
+  console.log(req.params.id, "======================================")
   const cartDetail = await cartModel.findByIdAndDelete({ _id: req.params.id });
   if (!cartDetail) {
     return next(
       new AppError("Cannot find the required id to delete from the cart ", 400)
     );
   }
-  res.staus(200).json({
+  res.status(200).json({
     status: "success",
     message: "Product Remove from the cart ",
   });
