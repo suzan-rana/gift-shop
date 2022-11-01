@@ -8,6 +8,7 @@ import {
   deleteCartItemThunk,
   calculateTotalItems,
   calculateTotalPrice,
+  deleteAllItemsFromCart,
 } from "../../../redux/slices/cartSlice";
 import Checkout from "./Checkout";
 
@@ -88,7 +89,10 @@ const Cart = () => {
   }, []);
   if (cart?.length === 0) return <h1>Sorry, no item in Cart.</h1>;
   const handleEmptyCart = () => {
-    //pass
+    dispatch(deleteAllItemsFromCart()).then(() => {
+      dispatch(calculateTotalItems());
+      dispatch(calculateTotalPrice());
+    });
   };
 
   return (

@@ -166,6 +166,11 @@ router.delete(
   authController.protectMiddleware,
   cartController.deleteCart
 );
+router.delete(
+  "/",
+  authController.protectMiddleware,
+  cartController.deleteallChart
+);
 
 /**
  * @swagger

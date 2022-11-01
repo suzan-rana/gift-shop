@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { addToCart, getCartItems, updateCart, deleteCartItem } from "../../api";
+import {
+  addToCart,
+  getCartItems,
+  emptyCart,
+  updateCart,
+  deleteCartItem,
+} from "../../api";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -23,7 +29,7 @@ const cartSlice = createSlice({
       state.cart.forEach((element) => {
         totalPrice = element.price * element.quantity + totalPrice;
       });
-      state.totalPrice = totalPrice
+      state.totalPrice = totalPrice;
     },
   },
   extraReducers: (builder) => {
@@ -71,6 +77,11 @@ const cartSlice = createSlice({
             (item) => item._id !== id
           );
           state.cart = updatedCartAfterRemovingItem;
+        }
+      })
+      .addCase(deleteAllItemsFromCart.fulfilled, (state, action) => {
+        if (action.payload.status === "success") {
+          state.cart = [];
         }
       });
   },
@@ -157,6 +168,17 @@ export const deleteCartItemThunk = createAsyncThunk(
   }
 );
 
+export const deleteAllItemsFromCart = createAsyncThunk(
+  "cart/deleteallitems",
+  async () => {
+    try {
+      const { data } = await emptyCart();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 // {status: 'success', message: 'Added to cart ', data: {…}}
 // data
 // :

@@ -55,8 +55,7 @@ const postCart = catchAsync(async (req, res, next) => {
 });
 
 const updateCart = catchAsync(async (req, res, next) => {
-  
-  const { quantity } = req.body; 
+  const { quantity } = req.body;
   const data = await cartModel.findOneAndUpdate(
     {
       _id: req.params.id,
@@ -101,10 +100,22 @@ const getCartWithId = catchAsync(async (req, res, next) => {
   });
 });
 
+const deleteallChart = catchAsync(async (req, res, next) => {
+  const data = await cartModel.deleteMany();
+  if (data) {
+    return res.status(200).json({
+      message: "All cart data deleted",
+      status: 'success'
+    });
+  }
+  next(new AppError("Cannot delete all item from cart", 400));
+});
+
 module.exports = {
   getAllCart,
   postCart,
   updateCart,
   deleteCart,
   getCartWithId,
+  deleteallChart,
 };
