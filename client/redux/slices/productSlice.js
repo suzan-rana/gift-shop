@@ -6,6 +6,7 @@ const productSlice = createSlice({
   initialState: {
     status: "Active",
     products: [],
+    errorStatusCode: null,
   },
   extraReducers: (builder) => {
     builder
@@ -16,6 +17,10 @@ const productSlice = createSlice({
       .addCase(getProductsThunk.fulfilled, (state, action) => {
         state.products = action.payload.data;
         state.status = action.payload.status;
+        state.errorStatusCode = null
+      })
+      .addCase(getProductsThunk.rejected, (state, action) => {
+        state.errorStatusCode = action.payload;
       });
   },
 });
@@ -42,7 +47,7 @@ export const getProductsThunk = createAsyncThunk(
       console.log(data);
       return { data, status };
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) return 401;
     }
   }
 );

@@ -185,6 +185,7 @@ router.put(
  *
  *
  */
+router.get("/home",productController.gethomeproduct)
 router.delete(
   "/:id",
   authController.protectMiddleware,

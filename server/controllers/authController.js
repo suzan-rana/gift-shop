@@ -16,9 +16,9 @@ const jwttoken = (id, email, username) => {
     },
     process.env.jwtsecret,
     {
-      expiresIn: "1hr",
+      expiresIn: "90s",
     }
-  );
+  );  
   return token;
 };
 /*
@@ -82,7 +82,7 @@ const protectMiddleware = catchAsync(async (req, res, next) => {
       new AppError("You are not authorized .Please login to proceed", 401)
     );
   }
-  console.log("ths token", token);
+  // console.log("ths token", token);
   //2) verify token
   const decoded = await promisify(jwt.verify)(token, process.env.jwtsecret);
   //3)

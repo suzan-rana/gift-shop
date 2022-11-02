@@ -43,3 +43,43 @@ export const registerUserThunk = createAsyncThunk(
     }
   }
 );
+
+
+// code
+// : 
+// "ERR_BAD_REQUEST"
+// config
+// : 
+// {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
+// message
+// : 
+// "Request failed with status code 401"
+// name
+// : 
+// "AxiosError"
+// request
+// : 
+// XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+// response
+// : 
+// config
+// : 
+// {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
+// data
+// : 
+// {status: 'error', message: 'Token expired .You need to login again '}
+// headers
+// : 
+// AxiosHeaders {content-length: '70', content-type: 'application/json; charset=utf-8', Symbol(defaults): null}
+// request
+// : 
+// XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+// status
+// : 
+// 401
+// statusText
+// : 
+// "Unauthorized"
+// [[Prototype]]
+// : 
+// Object

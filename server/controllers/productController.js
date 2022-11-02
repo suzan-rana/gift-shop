@@ -17,6 +17,16 @@ const storage = multer.diskStorage({
 });
 
 const uploadOptions = multer({ storage: storage });
+const gethomeproduct= catchAsync(async(req,res,next)=>{
+  const data = await productModel.find({isFeatured:true});
+  if (data){
+    return res.status(200).json({
+      data
+    })
+  }
+  next(AppError("Cannot find the product ",400))
+
+})
 
 //get all product items get request -- /prouduct
 const getAllProduct = catchAsync(async (req, res, next) => {
@@ -268,6 +278,7 @@ const getFeaturedCount = catchAsync(async (req, res, next) => {
 module.exports = {
   getAllProduct,
   postProduct,
+  gethomeproduct,
   updateProduct,
   deleteProduct,
   getProductById,
